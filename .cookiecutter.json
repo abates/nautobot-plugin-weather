@@ -1,0 +1,26 @@
+{
+    "cookiecutter": {
+        "codeowner_github_usernames": "@abate",
+        "full_name": "Andrew Bates",
+        "email": "abates@omeganetserv.com",
+        "github_org": "abates",
+        "plugin_name": "nautobot_weather",
+        "verbose_name": "Nautobot Weather",
+        "plugin_slug": "nautobot-weather",
+        "project_slug": "nautobot-plugin-nautobot-weather",
+        "repo_url": "https://github.com/abates/nautobot-plugin-weather",
+        "base_url": "nautobot-weather",
+        "min_nautobot_version": "1.6.0",
+        "max_nautobot_version": "1.9999",
+        "nautobot_version": "1.6",
+        "camel_name": "NautobotWeather",
+        "project_short_description": "Nautobot Weather",
+        "version": "0.1.0",
+        "model_class_name": "None",
+        "open_source_license": "Apache-2.0",
+        "docs_base_url": "https://docs.nautobot.com",
+        "docs_app_url": "https://docs.nautobot.com/projects/nautobot-weather/en/latest",
+        "_template": "cookiecutter-ntc/nautobot-plugin",
+        "_output_dir": "/Users/abates/local/devel"
+    }
+}
