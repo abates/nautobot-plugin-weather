@@ -1,45 +1,43 @@
 """Provides weather data based on zipcode."""
 import requests
+from requests.adapters import HTTPAdapter, Retry
 
 
 class Client:
-    """Obtain local weather information based on zipcode.
+    """Simple API client for NWS weather forecast data."""
 
-    Args:
-        zipcode (int): The location's zipcode for weather information.
-    """
+    def __init__(self):
+        self.session = requests.Session()
+        retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+        self.session.mount('http://', HTTPAdapter(max_retries=retries))
 
-    def _get_weather_forecast_url(self, latitude, longitude) -> str:
+    def get_weather_forecast_url(self, latitude, longitude) -> str:
         """Get National Weather Forecast Office forecast url.
 
         Returns:
             str: URL of the local weather office provided by the latitude and longitude coordinates.
         """
-        url = f"https://api.weather.gov/points/{latitude},{longitude}"
+        lookup_url = f"https://api.weather.gov/points/{latitude},{longitude}"
 
-        weather_station_data = requests.get(url, timeout=10)
-        weather_station_data = weather_station_data.json()
+        response = self.session.get(lookup_url, timeout=10)
+        weather_station_data = response.json()
 
-        forecast_url = weather_station_data["properties"]["forecast"]
+        return weather_station_data["properties"]["forecast"]
 
-        return forecast_url
-
-    def _get_weather_data(self, latitude, longitude) -> dict:
+    def get_weather_data(self, forecast_url) -> dict:
         """Get current weather forecast data.
 
         Returns:
             dict: Dictionary of weather related items.
         """
         # Get weather forecast data.
-        forecast_url = self._get_weather_forecast_url(latitude, longitude)
-        weather_data = requests.get(forecast_url, timeout=10)
-        weather_data = weather_data.json()
+        response = self.session.get(forecast_url, timeout=10)
+        weather_data = response.json()
 
         # Get the current weather.
         current_weather = weather_data["properties"]["periods"][0]
 
-        # Dictionary to store all the weather information.
-        weather_information = {
+        return {
             "description": current_weather["name"],
             "short_forecast": current_weather["shortForecast"],
             "detailed_forecast": current_weather["detailedForecast"],
@@ -49,5 +47,3 @@ class Client:
             "wind_speed": current_weather["windSpeed"],
             "wind_direction": current_weather["windDirection"],
         }
-
-        return weather_information
