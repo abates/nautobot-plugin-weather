@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Weather {{ weather.description }}</strong>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover panel-body attr-table">
+            <tr>
+                <td>Short Forecast</td>
+                <td>{{ weather.short_forecast }}</td>
+            </tr>
+            <tr>
+                <td>Detailed Forecast</td>
+                <td>{{ weather.detailed_forecast }}</td>
+            </tr>
+            <tr>
+                <td>Temperature</td>
+                <td>{{ weather.temperature }}{{ weather.temperature_unit }}</td>
+            </tr>
+            <tr>
+                <td>Probability of Precipitation</td>
+                <td>{{ weather.probability_of_precipitation }}%</td>
+            </tr>
+            <tr>
+                <td>Wind</td>
+                <td>{{ weather.wind_speed }} {{ weather.wind_direction }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
